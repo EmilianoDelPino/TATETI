@@ -13,12 +13,14 @@ void print_tablero(char tablero [3][3]);
 void ingreso_1(char tablero[3][3]);
 void ingreso_pc (char tablero[3][3]);
 int ganador (char tablero [3][3]);
+void ingreso_2(char tablero[3][3]);
+int choose_rival(char tablero [3][3]);
 
 
 
 int main(){
     system ("cls");
-    char tablero[3][3], a, N, S;
+    char tablero[3][3], a;
     cout<<"BIENVENIDOS AL PEOR TUTIFRUTI DE LA HISTORIA!!"<< endl;
     cout<< "By Emi"<<endl<<endl;
     system ("pause");
@@ -26,13 +28,14 @@ int main(){
     funcion(tablero); // Asi se llama una funcion y se envia la matriz
     system ("pause");
     cout<<"Quieres volver a jugar?"<<endl;
-    cout<<"S/N"<<endl;
+    cout<<"Ingrese 1 para SI."<<endl;
+    cout<<"Ingrese 2 para NO."<<endl;
     cin>>a;
-    if(a==N){
-        return 0;
+    if(a==1){
+        return main();
     }
     else{
-        return main();
+        return 0;
     }
 
     return 0;
@@ -40,16 +43,22 @@ int main(){
 }
 /// JUNTO TODAS LAS FUNCIONES PARA LLEVARLO AL MAIN.
 char funcion(char tablero[3][3]){
-    int i=0, j=2;
+    int i=0, j=2, choose=0;
     armo_tableroIni(tablero);
     print_tablero(tablero);
     cout << endl << endl;
+    choose = choose_rival(tablero);
     while (i < 9 && j==2){
         if (i%2==0){/// = 0 mi turno = 1 turno de la maquina.
             ingreso_1(tablero);
         }
         else{
-            ingreso_pc(tablero);
+            if (choose == 1){
+                ingreso_pc(tablero);
+            }
+            else{ingreso_2(tablero);
+
+            }
         }
         system("cls");
         print_tablero(tablero);
@@ -77,6 +86,14 @@ void armo_tableroIni(char tablero [3][3]){
             tablero[i][j]= ini++;
         }
     }
+}
+int choose_rival(char tablero [3][3]){
+    int a, S, N;
+    cout << "Desea jugar contra la maquina? "<<endl;
+    cout << "1 - SI."<<endl;
+    cout << "2 - NO."<<endl;
+    cin >> a;
+    return a;
 }
 /// INGRESO MANUAL DEL JUGADOR CON X.
 void ingreso_1(char tablero[3][3]){
@@ -201,6 +218,102 @@ void ingreso_pc (char tablero[3][3]){
     }
     tablero [i][j]= 'O';
 }
+void ingreso_2(char tablero[3][3]){
+    char pos;
+    int i, j, b=0; //utilizo b como bandera.
+    while(b==0){
+        do{
+            cout << "Ingrese una posicion entre 1 y 9 que no este ocupada por X u O: ";
+            cin>>pos;
+        }while(pos < '1' || pos > '9');
+        b = 1;
+        switch (pos){
+            case '1':{
+                i=0;
+                j=0;
+                if (tablero[i][j] == 'X' || tablero[i][j]=='O'){
+                    b=0;
+                    cout << "El lugar ya esta ocupado!! Intentalo en otro!!"<<endl;
+                }
+                break;
+            }
+            case '2':{
+                i=0;
+                j=1;
+                if (tablero[i][j] == 'X' || tablero[i][j]=='O'){
+                    b=0;
+                    cout << "El lugar ya esta ocupado!! Intentalo en otro!!"<<endl;
+                }
+                break;
+            }
+            case '3':{
+                i=0;
+                j=2;
+                if (tablero[i][j] == 'X' || tablero[i][j]=='O'){
+                    b=0;
+                    cout << "El lugar ya esta ocupado!! Intentalo en otro!!"<<endl;
+                }
+                break;
+            }
+            case '4':{
+                i=1;
+                j=0;
+                if (tablero[i][j] == 'X' || tablero[i][j]=='O'){
+                    b=0;
+                    cout << "El lugar ya esta ocupado!! Intentalo en otro!!"<<endl;
+                }
+                break;
+            }
+            case '5':{
+                i=1;
+                j=1;
+                if (tablero[i][j] == 'X' || tablero[i][j]=='O'){
+                    b=0;
+                    cout << "El lugar ya esta ocupado!! Intentalo en otro!!"<<endl;
+                }
+                break;
+            }
+            case '6':{
+                i=1;
+                j=2;
+                if (tablero[i][j] == 'X' || tablero[i][j]=='O'){
+                    b=0;
+                    cout << "El lugar ya esta ocupado!! Intentalo en otro!!"<<endl;
+                }
+                break;
+            }
+            case '7':{
+                i=2;
+                j=0;
+                if (tablero[i][j] == 'X' || tablero[i][j]=='O'){
+                    b=0;
+                    cout << "El lugar ya esta ocupado!! Intentalo en otro!!"<<endl;
+                }
+                break;
+            }
+            case '8':{
+                i=2;
+                j=1;
+                if (tablero[i][j] == 'X' || tablero[i][j]=='O'){
+                    b=0;
+                    cout << "El lugar ya esta ocupado!! Intentalo en otro!!"<<endl;
+                }
+                break;
+            }
+            case '9':{
+                i=2;
+                j=2;
+                if (tablero[i][j] == 'X' || tablero[i][j]=='O'){
+                    b=0;
+                    cout << "El lugar ya esta ocupado!! Intentalo en otro!!"<<endl;
+                }
+                break;
+            }
+        }
+    }
+    tablero[i][j]= 'O';
+}
+
 /// FUNCION GANADOR. VOY A UTILIZAR INT
 int ganador (char tablero [3][3]){
     ///COMPARO TODAS LAS POSIBILIDADES DE GANAR DE LA POSICION 0,0 (1)
